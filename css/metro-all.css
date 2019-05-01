@@ -30864,6 +30864,22 @@ video:-webkit-full-screen {
   text-overflow: ellipsis;
   z-index: 2;
 }
+
+.tile-large .branding-bar-hot {
+  height: 50px;
+  line-height: 32px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0 10px 5px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  z-index: 2;
+}
 .tile-small .badge-top,
 .tile-medium .badge-top,
 .tile-wide .badge-top,
