@@ -35,7 +35,7 @@
                 <span class="invalid_feedback">이메일 형식으로 입력하세요</span>
         </div>
         <div class="form-group">
-            <input type="text" data-role="input" data-prepend="<span class='mif-envelop'>" placeholder="이름" data-validate="required minlength=2" name="name">
+            <input type="text" data-role="input" data-prepend="<span class='mif-user'>" placeholder="이름" data-validate="required minlength=2" name="name">
                 <span class="invalid_feedback">2자 이상 입력하세요</span>
         </div>
         <div class="form-group">
@@ -47,7 +47,7 @@
             <div  style="color:#CE352C; font-size:14px" id="checkText"></div>
         </div>
         <div class="form-group">
-            <input type="text" data-role="input" data-prepend="<span class='mif-lock'>" placeholder="학번" data-validate="required minlength=7" name="dept_no">
+            <input type="text" data-role="input" data-prepend="<span class='mif-school'>" placeholder="학번" data-validate="required minlength=7" name="dept_no">
             <span class="invalid_feedback">7자 이상 입력하세요</span>
         </div>
         <div class="form-group mt-10">

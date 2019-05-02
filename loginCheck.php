@@ -1,7 +1,7 @@
 <?php
  session_start();
 
- $mysqli = new mysqli("localhost", "root", "123456", "account");
+ $mysqli = new mysqli("localhost", "root", "123456", "overclock");
 
 
  $id=$_POST['id'];
