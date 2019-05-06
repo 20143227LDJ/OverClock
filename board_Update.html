@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>asd</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <meta name="twitter:site" content="@metroui">
+    <meta name="twitter:creator" content="@pimenov_sergey">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Metro 4 Components Library">
+    <meta name="twitter:description" content="Metro 4 is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.">
+    <meta name="twitter:image" content="https://metroui.org.ua/images/m4-logo-social.png">
+
+    <meta property="og:url" content="https://metroui.org.ua/v4/index.html">
+    <meta property="og:title" content="Metro 4 Components Library">
+    <meta property="og:description" content="Metro 4 is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://metroui.org.ua/images/m4-logo-social.png">
+    <meta property="og:image:secure_url" content="https://metroui.org.ua/images/m4-logo-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="968">
+    <meta property="og:image:height" content="504">
+
+
+    <meta name="author" content="Sergey Pimenov">
+    <meta name="description" content="The most popular HTML, CSS, and JS library in Metro style.">
+    <meta name="keywords" content="HTML, CSS, JS, Metro, CSS3, Javascript, HTML5, UI, Library, Web, Development, Framework">
+
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <link href="index.css" rel="stylesheet">
+    <link href="css/metro-all.css" rel="stylesheet">
+  </head>
+  <style>
+
+
+      body{
+        background-image: url('img/black.jpg');
+        background-size: 1500px;
+      }
+
+  </style>
+
+<body>
+
+<center>
+  	<table summary="글수정 전체 테이블">
+  		<form name="BoardUpdateForm" method="post" action=""
+  														onsubmit="" >
+
+     		<colgroup>
+     			<col width="20%">
+     			<col width="80%">
+     		</colgroup>
+
+
+  		<table summary="테이블 구성" >
+  		<caption style = color:white; >글 수정하기</caption>
+      		<tr>
+  				<td style = color:white; >작성자</td>
+  				<td><input type=text name=name size=10 maxlength=8></td>
+  			</tr>
+  			<tr>
+  	 			<td style = color:white;>E-Mail</td>
+  	 			<td><input type=text name=email size=30></td>
+      		</tr>
+      		<tr>
+       			<td style = color:white;>홈페이지</td>
+       			<td><input type=text name=homepage size=30></td>
+      		</tr>
+      		<tr>
+       			<td style = color:white;>제 목</td>
+       			<td><input type=text name=title></td>
+      		</tr>
+      		<tr>
+       			<td style = color:white;>내 용</td>
+       			<td><textarea name=content rows ="10" cols="100"></textarea></td>
+      		</tr>
+      		<tr>
+       			<td style = color:white;>비밀번호</td>
+       			<td><input type=password name=password size=15 maxlength=15></td>
+      		</tr>
+      		<tr>
+       			<td colspan=2><hr size=1></td>
+      		</tr>
+      		<tr>
+       			<td colspan="2"><div align="center">
+       			<input class = "button dark" type="submit" value="수정 완료">;
+  				<input class = "button dark" type=reset value="다시 수정">
+           		<button class = "button dark" value="뒤로" onclick="">뒤로 가기</button></div>
+       			</td>
+      		</tr>
+  		</table>
+  	</form>
+  </table>
+  </center>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/metro.js"></script>
+<script src="index.js"></script>
+
+<script href="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+
+
+</body>
+
+</html>
