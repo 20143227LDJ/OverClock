@@ -4,31 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <meta name="twitter:site" content="@metroui">
-    <meta name="twitter:creator" content="@pimenov_sergey">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Metro 4 Components Library">
-    <meta name="twitter:description" content="Metro 4 is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.">
-    <meta name="twitter:image" content="https://metroui.org.ua/images/m4-logo-social.png">
-
-    <meta property="og:url" content="https://metroui.org.ua/v4/index.html">
-    <meta property="og:title" content="Metro 4 Components Library">
-    <meta property="og:description" content="Metro 4 is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://metroui.org.ua/images/m4-logo-social.png">
-    <meta property="og:image:secure_url" content="https://metroui.org.ua/images/m4-logo-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="968">
-    <meta property="og:image:height" content="504">
-    
-
-    <meta name="author" content="Sergey Pimenov">
-    <meta name="description" content="The most popular HTML, CSS, and JS library in Metro style.">
-    <meta name="keywords" content="HTML, CSS, JS, Metro, CSS3, Javascript, HTML5, UI, Library, Web, Development, Framework">
-
-    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-
     <link href="index.css" rel="stylesheet">
     <link href="css/metro-all.css" rel="stylesheet">
     <style>
@@ -65,7 +40,9 @@
          <br>
          <li> <a><button class="button dark" value="kakaologin">카카오 계정 로그인</button></a></li>
          <br>
-         <li> <a><button class="button dark" value="login">로그인</button></a></li>
+         <li> <a href="user/login.php" ><button class="button dark" value="login">로그인</button></a></li>
+         <br>
+         <li> <a href="user/account.php" ><button class="button dark" value="account"> 회원가입</button></a></li>
          <br>
          <li> <a><button class="button dark" value="linkalarm">링크 알림 설정</button></a></li>
          <br>
@@ -114,7 +91,7 @@
 
     <div class="tiles-area clear">
             
-        <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="핫존">
+        <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="">
             
            
             <div data-role="tile" class="bg-red" data-size="large"><img src ="img/fire.png" width="300" height="250">
@@ -124,11 +101,11 @@
          
         </div>
 
-        <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="General">
+        <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
 
-            <div data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
+            <a href="https://naver.com" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
                 <span class="branding-bar">게시판</span>
-            </div>
+            </a>
             <div data-role="tile" class="bg-olive fg-white"><img src ="img/watching-tv.png" width="120" height="120">
                 <span class="branding-bar">킬링타임</span>
             </div>
