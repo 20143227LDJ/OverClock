@@ -13,6 +13,26 @@
           background-image: url('img/bg.jpg');
           background-size: 1500px;
         }
+        .green_window {
+            display: inline-block;
+            width: 366px; height: 34px;
+            border: 3px solid #000000;
+            background: white;
+        }
+        
+        .sch_smit {
+            width: 54px; height: 40px;
+            margin: 0; border: 0;
+            vertical-align: top;
+            background: rgb(0, 0, 0);
+            color: white;
+            font-weight: bold;
+            border-radius: 1px;
+            cursor: pointer;
+        }
+        .sch_smit:hover {
+            background: rgba(2, 7, 0, 0.171);
+        }
     </style>
     
     
@@ -57,13 +77,17 @@
      </div>
  </div>
 <center>
-
+    
     <div class="container-fluid start-screen h-150">
-       
+        <div><span class='green_window'>
+            <input type='text' class='input_text' placeholder="사이트 링크">
+        </span>
+        <button type='submit' class='sch_smit'>검색</button></div>
+        
         <div class="tiles-area clear">
-            
-           
-             
+            <br>
+
+            <br>  
             </div>
             <div class="clocks">
                 <div id="Date"></div>
