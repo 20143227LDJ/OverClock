@@ -1,5 +1,8 @@
+<?php
+ session_start();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -37,7 +40,7 @@
     
     
 
-    <title>Start screen demo - Metro 4 :: Popular HTML, CSS and JS library</title>
+    <title>Over Clock</title>
 </head>
 <body class="bg-dark fg-white h-vh-100 m4-cloak">
         <aside class="sidebar pos-absolute z-2"
@@ -60,9 +63,22 @@
          <br>
          <li> <a><button class="button dark" value="kakaologin">카카오 계정 로그인</button></a></li>
          <br>
+         <?php
+         if(isset($_SESSION['userid'])){
+         ?>
+
+         <li> <a href="user/logout.php" ><button class="button dark" value="login">로그아웃</button></a></li>
+
+         <?php 
+         }else{
+         ?>
+
          <li> <a href="user/login.php" ><button class="button dark" value="login">로그인</button></a></li>
-         <br>
-         <li> <a href="user/account.php" ><button class="button dark" value="account"> 회원가입</button></a></li>
+
+         <?php
+         }
+         ?>
+
          <br>
          <li> <a><button class="button dark" value="linkalarm">링크 알림 설정</button></a></li>
          <br>
@@ -74,6 +90,7 @@
          <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
              <span class="mif-menu fg-white"></span>
          </button>
+         <span class="pos-fixed pos-top-right"><?php  if(isset($_SESSION['userid'])) echo $_SESSION['username']. "님 안녕하세요"; ?></span>
      </div>
  </div>
 <center>

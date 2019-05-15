@@ -14,8 +14,12 @@
  $row = mysqli_fetch_array($result);
  if($row[0] == $id && $row[2] == $password)
  {
-     $_SESSION['ses_id'] = $row[1];
-     echo $_SESSION['ses_id'].'님 안녕하세요';
+     $_SESSION['userid'] = $id;
+     $_SESSION['username'] = $row[1];
+ }
+ if(isset($_SESSION['userid']))
+ {
+    echo "<script>alert('로그인되었습니다.'); location.href='../index.php';</script>";
  }
 //print_r(mysqli_fetch_array($result));
 ?>

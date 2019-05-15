@@ -161,7 +161,7 @@ transition: all 0.3s ease-out;}
 
 #gnb_all{display:none;position:absolute;width:100%;z-index:99;}
 #gnb_all .gnb_al_ul:after {display:block;visibility:hidden;clear:both;content:""}
-#gnb_all .gnb_al_ul{background:rgb(48, 48, 48)!important;border:1px solid #4158d1;padding:20px;
+#gnb_all .gnb_al_ul{background:rgb(48, 48, 48)!important;border:1px solid #4158d1;
 -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 -moz-box-shadow:  0 2px 5px rgba(0,0,0,0.2);
 box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
