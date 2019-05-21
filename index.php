@@ -38,8 +38,6 @@
         }
     </style>
     
-    
-
     <title>Over Clock</title>
 </head>
 <body class="bg-dark fg-white h-vh-100 m4-cloak">
@@ -96,10 +94,18 @@
 <center>
     
     <div class="container-fluid start-screen h-150">
-        <div><span class='green_window'>
-            <input type='text' class='input_text' placeholder="사이트 링크">
-        </span>
-        <button type='submit' class='sch_smit'>검색</button></div>
+        <form data-role="validator"
+          method="POST"
+          action="setURL.php"
+          data-clear-invalid="2000"
+          data-interactive-check="true"
+          data-on-error-form="invalidForm"
+          data-on-validate-form="validateForm">
+            <span class='green_window' >
+                <input type='text' class='input_text' placeholder="사이트 링크" name="url">
+            </span>
+                <button type='submit' class='sch_smit'>검색</button>
+        </form>
         
         <div class="tiles-area clear">
             <br>
@@ -122,14 +128,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
     <div class="tiles-area clear">
             
         <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="">
@@ -150,6 +148,7 @@
             <div data-role="tile" class="bg-olive fg-white"><img src ="img/watching-tv.png" width="120" height="120">
                 <span class="branding-bar">킬링타임</span>
             </div>
+
             <div data-role="tile" class="bg-amber fg-white"><img src ="img/ticket.png" width="120" height="120">
                     <span class="branding-bar">티켓팅 연습</span>
                     <span class="badge-bottom"></span>
@@ -168,50 +167,36 @@
 
 
 </center>
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/metro.js"></script>
     <script src="index.js"></script>
     
     <script href="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    
 
     <script type="text/javascript">
         $(document).ready(function() {
-        // Create two variable with the names of the months and days in an array
-        var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]; 
-        var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-        
-        // Create a newDate() object
-        var newDate = new Date();
-        // Extract the current date from Date object
-        newDate.setDate(newDate.getDate());
-        // Output the day, date, month and year   
-        $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
-        
-        setInterval( function() {
-            // Create a newDate() object and extract the seconds of the current time on the visitor's
-            var seconds = new Date().getSeconds();
-            // Add a leading zero to seconds value
-            $("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
-            },1000);
-            
-        setInterval( function() {
-            // Create a newDate() object and extract the minutes of the current time on the visitor's
-            var minutes = new Date().getMinutes();
-            // Add a leading zero to the minutes value
-            $("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
-            },1000);
-            
-        setInterval( function() {
-            // Create a newDate() object and extract the hours of the current time on the visitor's
-            var hours = new Date().getHours();
-            // Add a leading zero to the hours value
-            $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
-            }, 1000);	
-        });
-        </script>
 
+        setInterval( function() {
+            
+            // 데이터 가져오기
+            $.ajax({
+            url: "HeaderInfo.php",
+            type:"post",
+            cache : false,
+            success: function(data){ // HeaderInfo.php 파일에서 echo 결과값이 data 임
+                var jbSplit = data.split('\n');
+                $("#sec").html(( jbSplit[2] < 10 ? "0" : "" ) + jbSplit[2]);
+                $("#min").html(jbSplit[1]);
+                $("#hours").html(( jbSplit[0] < 10 ? "0" : "" ) + jbSplit[0]);
+                $('#Date').html(jbSplit[3]);
+                }
+            });
+
+        },1000);
+    });
+
+    </script>
 </body>
 </html>
