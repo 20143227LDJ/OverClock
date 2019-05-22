@@ -1,6 +1,6 @@
 <?php
 $name = "url";
-$value = $_POST['url'];
+$value = "http://". $_POST['url'];
 
 setcookie($name, $value);
 header('Location: ../');

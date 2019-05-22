@@ -113,7 +113,7 @@
             <br>  
             </div>
             <div class="clocks">
-                <div id="Date"></div>
+                <div id="Date" OnClick="location.href ='#'"></div>
                   <ul>
                       <li id="hours"></li>
                       <li id="point">:</li>
@@ -190,7 +190,8 @@
                 $("#sec").html(( jbSplit[2] < 10 ? "0" : "" ) + jbSplit[2]);
                 $("#min").html(jbSplit[1]);
                 $("#hours").html(( jbSplit[0] < 10 ? "0" : "" ) + jbSplit[0]);
-                $('#Date').html(jbSplit[3]);
+                document.getElementById( 'Date' ).setAttribute( 'OnClick', "location.href ='" + jbSplit[3] + ":" + jbSplit[4] + "'" );
+                $('#Date').html(jbSplit[3] + ":" + jbSplit[4]);
                 }
             });
 
