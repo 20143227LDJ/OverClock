@@ -11,15 +11,16 @@
 
  $result = $mysqli->query($sql);
 
- $row = mysqli_fetch_array($result);
- if($row[0] == $id && $row[2] == $password)
+ $row = mysqli_fetch_assoc($result);
+ if($row['id'] == $id && $row['pwd'] == $password) //db에서 id필드의 값과 pwd필드의 값을 각각 비교
  {
      $_SESSION['userid'] = $id;
-     $_SESSION['username'] = $row[1];
+     $_SESSION['username'] = $row['name'];
  }
  if(isset($_SESSION['userid']))
  {
     echo "<script>alert('로그인되었습니다.'); location.href='../index.php';</script>";
  }
-//print_r(mysqli_fetch_array($result));
+
+ mysqli_close($mysqli);
 ?>

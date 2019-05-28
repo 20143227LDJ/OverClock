@@ -133,8 +133,13 @@
         <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="">
             
            
-            <div data-role="tile" class="bg-red" data-size="large"><img src ="img/fire.png" width="300" height="250">
-             
+            <div data-role="tile" class="bg-red" data-size="large"><!-- <img src ="img/fire.png" width="300" height="250"> -->
+                <!--실시간 순위-->
+                <p class="text-center" id="rank1"></p>
+                <p class="text-center" id="rank2"></p>
+                <p class="text-center" id="rank3"></p>
+                <p class="text-center" id="rank4"></p>
+                <p class="text-center" id="rank5"></p>
                 <span class="branding-bar-hot" style="font-size:35px;">핫 존</span>
             </div>
          
@@ -142,7 +147,7 @@
 
         <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
 
-            <a href="https://naver.com" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
+            <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
                 <span class="branding-bar">게시판</span>
             </a>
             <div data-role="tile" class="bg-olive fg-white"><img src ="img/watching-tv.png" width="120" height="120">
@@ -185,17 +190,44 @@
             url: "HeaderInfo.php",
             type:"post",
             cache : false,
-            success: function(data){ // HeaderInfo.php 파일에서 echo 결과값이 data 임
-                var jbSplit = data.split('\n');
-                $("#sec").html(( jbSplit[2] < 10 ? "0" : "" ) + jbSplit[2]);
-                $("#min").html(jbSplit[1]);
-                $("#hours").html(( jbSplit[0] < 10 ? "0" : "" ) + jbSplit[0]);
-                document.getElementById( 'Date' ).setAttribute( 'OnClick', "location.href ='" + jbSplit[3] + ":" + jbSplit[4] + "'" );
-                $('#Date').html(jbSplit[3] + ":" + jbSplit[4]);
+            success: function(data){ // HeaderInfo.php 파일에서 echo 결과값이 data
+                    var jbSplit = data.split('\n');
+                    $('#Date').html(jbSplit[3] + ":" + jbSplit[4]);
+                    $("#sec").html(( jbSplit[2] < 10 ? "0" : "" ) + jbSplit[2]);
+                    $("#min").html(jbSplit[1]);
+                    $("#hours").html(( jbSplit[0] < 10 ? "0" : "" ) + jbSplit[0]);
+                    document.getElementById( 'Date' ).setAttribute( 'OnClick', "location.href ='" + jbSplit[3] + ":" + jbSplit[4] + "'" );
+                }
+            });
+
+            // 실시간 순위
+            $.ajax({
+            url: "rankDB.php",
+            type:"post",
+            cache : false,
+            success: function(data){ // rankDB.php 파일에서 echo 결과값이 data
+                    var jbSplit = data.split('\n');
+                    $('#rank1').html(jbSplit[0] + "   검색 횟수 : " + jbSplit[1]);
+                    $('#rank2').html(jbSplit[2] + "   검색 횟수 : " + jbSplit[3]);
+                    $('#rank3').html(jbSplit[4] + "   검색 횟수 : " + jbSplit[5]);
+                    $('#rank4').html(jbSplit[6] + "   검색 횟수 : " + jbSplit[7]);
+                    $('#rank5').html(jbSplit[8] + "   검색 횟수 : " + jbSplit[9]);
                 }
             });
 
         },1000);
+
+        setInterval( function() {
+
+            // 실시간 검색 db 데이터 삭제
+            $.ajax({
+            url: "rankDBdelete.php",
+            cache : false,
+            success: function(data){ // HeaderInfo.php 파일에서 echo 결과값이 data
+                }
+            });
+
+        },1000 * 60 * 10);
     });
 
     </script>

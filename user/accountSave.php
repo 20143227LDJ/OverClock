@@ -10,8 +10,10 @@
  $sql = $sql. "values('$id','$name','$password','$dept_no')";
 
  if($mysqli->query($sql)){
-  echo 'success inserting';
+    echo "<script>alert('회원가입 성공!!'); location.href='login.php';</script>";
  }else{
-  echo 'fail to insert sql';
+    echo "<script>alert('회원가입 실패ㅠㅠ'); location.href='login.php';</script>";
  }
+
+ mysqli_close($mysqli);
 ?>
