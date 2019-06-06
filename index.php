@@ -1,5 +1,5 @@
 <?php
- session_start();
+ session_start(); // 세션 시작
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,9 +10,7 @@
     <link href="index.css" rel="stylesheet">
     <link href="css/metro-all.css" rel="stylesheet">
     <style>
-
-
-
+        
 
         body{
           background-image: url('img/bg.jpg');
@@ -24,7 +22,7 @@
             border: 3px solid #000000;
             background: white;
         }
-
+        
         .sch_smit {
             width: 54px; height: 40px;
             margin: 0; border: 0;
@@ -37,6 +35,10 @@
         }
         .sch_smit:hover {
             background: rgba(2, 7, 0, 0.171);
+        }
+
+        .hover:hover {
+            color:red;
         }
 
         #modal .modal {
@@ -54,196 +56,237 @@
 
         /* Modal Content/Box */
         #modal .modal-content {
+            position:absolute;
             background-image: url('img/bg.jpg');
             margin: 15% auto; /* 15% from the top and centered */
             padding: 20px;
             border: 1px solid #888;
-            width: 50%; /* Could be more or less, depending on screen size */
+            bottom: 3px;
+            right: 10px;
+            height: 350px;
+            width: 350px;  /*Could be more or less, depending on screen size */
+        }
+        #play{
+            margin: 3px;
         }
 
-
-
     </style>
-
+    
     <title>Over Clock</title>
 </head>
+
 <body class="bg-dark fg-white h-vh-100 m4-cloak">
-        <aside class="sidebar pos-absolute z-2"
-        data-role="sidebar"
-        data-toggle="#sidebar-toggle-3"
-        id="sb3"
-        data-shift=".shifted-content">
+    <aside class="sidebar pos-absolute z-2"
+    data-role="sidebar"
+    data-toggle="#sidebar-toggle-3"
+    id="sb1"
+    data-shift=".shifted-content">
+     
+        <a href="/" class="fg-white sub-action" onclick="Metro.sidebar.close('#sb1'); return false;">
+            <span class="mif-arrow-left mif-2x" style="float:right;"></span>
+        </a>
+        
+        <ol class="sidebar-menu">
+            <br>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='searchsave' value='searchsave' />검색시 주소 저장</li>
+            <br>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='serverauto' value='serverauto' />오픈 시간 자동 접속</li>
+            <br>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='kakao' value='kakao' />카카오톡 알림 받기</li>
+            <br>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="fm" id="radio1" checked>5분전</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="tm" id="radio2">10분전</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="hfm" id="radio3">30분전</li>
 
-     <ol class="sidebar-menu">
-         <br>
-         <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='searchsave' value='searchsave' />검색시 주소 저장</li>
-         <br>
-         <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='serverauto' value='serverauto' />오픈 시간 자동 접속</li>
-         <br>
-         <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='kakao' value='kakao' />카카오톡 알림 받기</li>
-         <br>
-         <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="fm">5분전</li>
-         <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="tm">10분전</li>
-         <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="hfm">30분전</li>
-         <br>
-         <li> <a><button class="button dark" value="kakaologin">카카오 계정 로그인</button></a></li>
-         <br>
-         <?php
-         if(isset($_SESSION['userid'])){
-         ?>
+            <audio src="" id="audio" autoplay></audio> <!-- 노래 부분 -->
 
-         <li> <a href="user/logout.php" ><button class="button dark" value="login">로그아웃</button></a></li>
+            <br>
+            <li> <a><button class="button dark" value="kakaologin">카카오 계정 로그인</button></a></li>
+            <br>
+            <?php
+            if(isset($_SESSION['userid'])){
+            ?>
 
-         <?php
-         }else{
-         ?>
+            <li> <a href="user/logout.php" ><button class="button dark" value="login">로그아웃</button></a></li>
 
-         <li> <a href="user/login.php" ><button class="button dark" value="login">로그인</button></a></li>
+            <?php 
+            }else{
+            ?>
 
-         <?php
-         }
-         ?>
+            <li> <a href="user/login.php" ><button class="button dark" value="login">로그인</button></a></li>
 
-         <br>
-         <li> <a><button class="button dark" value="linkalarm">링크 알림 설정</button></a></li>
-         <br>
+            <?php
+            }
+            ?>
 
-     </ol>
- </aside>
- <div >
-     <div class="app-bar pos-absolute bg-black z-1" data-role="appbar">
-         <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
-             <span class="mif-menu fg-white"></span>
-         </button>
-         <span class="pos-fixed pos-top-right"><?php  if(isset($_SESSION['userid'])) echo $_SESSION['username']. "님 안녕하세요"; ?></span>
-     </div>
- </div>
-<center>
-    <div class="container-fluid start-screen h-150">
-        <form data-role="validator"
-          method="POST"
-          action="setURL.php"
-          data-clear-invalid="2000"
-          data-interactive-check="true"
-          data-on-error-form="invalidForm"
-          data-on-validate-form="validateForm">
-            <span class='green_window' >
-                <input type='text' class='input_text' placeholder="사이트 링크" name="url">
-            </span>
+            <br>
+            <li> <a><button class="button dark" value="linkalarm">링크 알림 설정</button></a></li>
+            <br>
+
+            <input data-role="timepicker" id="setTime">
+
+        </ol>
+    </aside>
+
+    <!-- 로그인 했을때 우측 상단에 이름 나오는 부분 -->
+    <div >
+        <div class="app-bar pos-absolute bg-black z-1" data-role="appbar">
+            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+                <span class="mif-menu fg-white"></span>
+            </button>
+            <span class="pos-fixed pos-top-right"><?php  if(isset($_SESSION['userid'])) echo $_SESSION['username']. "님 안녕하세요"; ?></span>
+        </div>
+    </div>
+
+    <center>
+
+        <div class="container-fluid start-screen h-150">
+            <form data-role="validator"
+             method="POST"
+             action="servertime/setURL.php"
+             data-clear-invalid="2000"
+             data-interactive-check="true"
+             data-on-error-form="invalidForm"
+             data-on-validate-form="validateForm">
+                <span class='green_window' >
+                    <input type='text' class='input_text' placeholder="사이트 링크" name="url">
+                </span>
+                
                 <button type='submit' class='sch_smit'>검색</button>
-        </form>
+            </form>
+            
+            <br>
+            <br>
+                
+            <div class="clocks">
+                <span class="hover text-center c-pointer" id="Date" OnClick="location.href ='#'"></span>
+                
+                <ul>
+                    <li id="hours"></li>
+                    <li id="point">:</li>
+                    <li id="min"></li>
+                    <li id="point">:</li>
+                    <li id="sec"></li>
+                </ul>
+            </div>
+        </div>
 
         <div class="tiles-area clear">
-            <br>
-
-            <br>
+                
+            <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="">
+                
+            
+                <div data-role="tile" class="bg-red" data-size="large"><!-- <img src ="img/fire.png" width="300" height="250"> -->
+                    <!--실시간 순위-->
+                    <p class="text-center" id="rank1"></p>
+                    <p class="text-center" id="rank2"></p>
+                    <p class="text-center" id="rank3"></p>
+                    <p class="text-center" id="rank4"></p>
+                    <p class="text-center" id="rank5"></p>
+                    <span class="branding-bar-hot" style="font-size:35px;">핫 존</span>
+                </div>
+            
             </div>
-            <div class="clocks">
-                <div id="Date" OnClick="location.href ='#'"></div>
-                  <ul>
-                      <li id="hours"></li>
-                      <li id="point">:</li>
-                      <li id="min"></li>
-                      <li id="point">:</li>
-                      <li id="sec"></li>
-                  </ul>
+
+            <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
+
+                <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
+                     <span class="branding-bar">게시판</span>
+                </a>
+ 
+                <a  data-role="tile" id="modal_open" class="bg-olive fg-white"><img src ="img/watching-tv.png" value = "팝업창 호출" width="120" height="120">
+                    <span class="branding-bar" >킬링타임</span>
+                    <!--<button type="button" id="modal_open" img src ="img/watching-tv.png" onclick="open_pop" value = "팝업창 호출" width="120" height="120">모달 창 열기</button>-->
+                </a>
+
+                    
+ 
+                <div data-role="tile" class="bg-amber fg-white"><img src ="img/ticket.png" width="120" height="120">
+                         <span class="branding-bar">티켓팅 연습</span>
+                         <span class="badge-bottom"></span>
+                </div>
+ 
+                <div data-role="tile" class="bg-cyan fg-white" data-effect="animate-slide-up">
+                         <div class="slide"><img src ="img/oc.png" width="150" height="150"></div>
+                         <div class="slide"><img src ="img/bus.png" width="150" height="150"></div>
+                         <div class="slide"><img src ="img/ad.png" width="150" height="150"></div>
                 </div>
 
+                <div id="modal" style="display:none">
+                    <div class="modal-content">
 
-            </div>
-        </div>
-    </div>
+                        <a href = "http://www.youtube.com" align = "center" ><img id="play" src="img/youtube.png" width=" 100" height="100"></img></a>
+                        <a href = "https://www.netflix.com/browse" align = "center"><img id="play" src="img/netflix.png" width=" 100" height="100"></img></a>
+                        <a href = "https://www.twitch.tv/" align = "center" ><img id="play" src="img/twitch.png" width=" 100" height="100"></img></a>
+                        <a href = "http://www.afreecatv.com/" align = "center" ><img id="play" src="img/afreeca.jpg" width=" 100" height="100"></img></a>
+                        <a href = "https://play.sbs.co.kr/onair/pc/index.html" align = "center" ><img id="play" src="img/sbs.png" width=" 100" height="100"></img></a>
+                        <a href = "http://onair.kbs.co.kr/" align = "center" ><img id="play" src="img/kbs.png" width=" 100" height="100"></img></a>
 
-    <div class="tiles-area clear">
-
-        <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="">
-
-
-            <div data-role="tile" class="bg-red" data-size="large"><!-- <img src ="img/fire.png" width="300" height="250"> -->
-                <!--실시간 순위-->
-                <p class="text-center" id="rank1"></p>
-                <p class="text-center" id="rank2"></p>
-                <p class="text-center" id="rank3"></p>
-                <p class="text-center" id="rank4"></p>
-                <p class="text-center" id="rank5"></p>
-                <span class="branding-bar-hot" style="font-size:35px;">핫 존</span>
-            </div>
-
-        </div>
-
-        <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
-
-            <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
-                <span class="branding-bar">게시판</span>
-            </a>
-
-            <a  data-role="tile" class="bg-olive fg-white"><img src ="img/watching-tv.png" value = "팝업창 호출" width="120" height="120">
-              <span class="branding-bar" id="modal_open" onclick="modal_open()">킬링타임</span>
-            <!--<button type="button" id="modal_open" img src ="img/watching-tv.png" onclick="open_pop" value = "팝업창 호출" width="120" height="120">모달 창 열기</button>-->
-              <div id="modal">
-                  <div class="modal-content">
-                    <a href = "http://www.youtube.com" align = "center" ><img src="youtube.png" width=" 300" height="150"></img></a>
-                    <a href = "https://www.netflix.com/browse" align = "center"><img src="netflix.png" width=" 300" height="150"></img></a>
-                    <a href = "https://www.twitch.tv/" align = "center" ><img src="twitch.png" width=" 300" height="150"></img></a>
-                    <a href = "http://www.afreecatv.com/" align = "center" ><img src="afreeca.jpg" width=" 300" height="150"></img></a>
-                    <a href = "https://play.sbs.co.kr/onair/pc/index.html" align = "center" ><img src="sbs.png" width=" 300" height="150"></img></a>
-
-                      <button type="button" id="modal_close">닫기</button>
-                  </div>
-              </div>
-
-
-            </a>
-
-            <div data-role="tile" class="bg-amber fg-white"><img src ="img/ticket.png" width="120" height="120">
-                    <span class="branding-bar">티켓팅 연습</span>
-                    <span class="badge-bottom"></span>
+                    </div>
                 </div>
-            <div data-role="tile" class="bg-cyan fg-white" data-effect="animate-slide-up">
-                    <div class="slide"><img src ="img/oc.png" width="150" height="150"></div>
-                    <div class="slide"><img src ="img/bus.png" width="150" height="150"></div>
-                    <div class="slide"><img src ="img/ad.png" width="150" height="150"></div>
+
+            </div>
         </div>
-    </div>
-</div>
 
 
+    </center>
 
 
-
-
-</center>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/metro.js"></script>
     <script src="index.js"></script>
-
+    
     <script href="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-
+    
 
     <script type="text/javascript">
+
         $(document).ready(function() {
+            $("input:radio[type=radio]").click(function() 
+            { 
+                radioCheck(); 
+            }) 
+        
 
         setInterval( function() {
 
             // 데이터 가져오기
             $.ajax({
-            url: "HeaderInfo.php",
+            url: "servertime/HeaderInfo.php",
             type:"post",
             cache : false,
             success: function(data){ // HeaderInfo.php 파일에서 echo 결과값이 data
                     var jbSplit = data.split('\n');
+
                     $('#Date').html(jbSplit[3] + ":" + jbSplit[4]);
                     $("#sec").html(( jbSplit[2] < 10 ? "0" : "" ) + jbSplit[2]);
                     $("#min").html(jbSplit[1]);
                     $("#hours").html(( jbSplit[0] < 10 ? "0" : "" ) + jbSplit[0]);
-                    document.getElementById( 'Date' ).setAttribute( 'OnClick', "location.href ='" + jbSplit[3] + ":" + jbSplit[4] + "'" );
+                    //document.getElementById( 'Date' ).setAttribute( 'OnClick', "location.href ='" + jbSplit[3] + ":" + jbSplit[4] + "'" );
+                    $("#Date").attr( "OnClick", "location.href ='" + jbSplit[3] + ":" + jbSplit[4] + "'" );
+
+                    // 시간 타이머
+                    if(document.getElementById("setTime").value == jbSplit[0] + ":" + jbSplit[1] + ":" + jbSplit[2]){ // 사용자가 설정한 시간과 서버시간이 맞으면 조건문 실행
+                        document.getElementById( 'audio' ).setAttribute( 'src', "audio/test.mp3"); // 노래 재생
+                        
+                        <?php
+                            $to = $_SESSION['userid'];
+
+                            $subject = "안녕하세요! OverClock입니다.";
+
+                            $contents = "시간이 다 되었읍니다!!!\n";
+
+                            $headers = "From: tovin4613@naver.com\r\n";
+
+                            mail($to, $subject, $contents, $headers);
+                        ?>
+                    }
                 }
             });
 
             // 실시간 순위
             $.ajax({
-            url: "rankDB.php",
+            url: "rank/rankDB.php",
             type:"post",
             cache : false,
             success: function(data){ // rankDB.php 파일에서 echo 결과값이 data
@@ -256,13 +299,15 @@
                 }
             });
 
-        },1000);
+            // 시간 타이머
+
+        },1000); // 1초 마다 데이터 가지고 옴
 
         setInterval( function() {
 
             // 실시간 검색 db 데이터 삭제
             $.ajax({
-            url: "rankDBdelete.php",
+            url: "rank/rankDBdelete.php",
             cache : false,
             success: function(data){ // HeaderInfo.php 파일에서 echo 결과값이 data
                 }
@@ -271,17 +316,35 @@
         },1000 * 60 * 10);
     });
 
-
+    // 모달
     $("#modal_open").click(function(){
-        $("#modal").attr("style", "display:block");
+        var str = $( "#modal" ).attr( "style" );
+        if(str == "display:none"){
+            $("#modal").attr("style", "display:block");
+        }else{
+            $("#modal").attr("style", "display:none");
+        }
     });
 
-     $("#modal_close").click(function(){
-        $("#modal").attr("style", "display:none");
-    });
+    function radioCheck()	
+    { 
+        var radio1 = document.getElementById('radio1');
+        var radio2 = document.getElementById('radio2');
+        var radio3 = document.getElementById('radio3');
 
+        if($(radio1).is(":checked")){
+            alert("radio1");
+        }
 
+        if($(radio2).is(":checked")){
+            alert("radio2");
+        }
 
+        if($(radio3).is(":checked")){
+            alert("radio3");
+        }
+        return false; 
+    }
 
     </script>
 </body>
