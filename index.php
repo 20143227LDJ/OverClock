@@ -10,7 +10,9 @@
     <link href="index.css" rel="stylesheet">
     <link href="css/metro-all.css" rel="stylesheet">
     <style>
-        
+
+
+
 
         body{
           background-image: url('img/bg.jpg');
@@ -22,7 +24,7 @@
             border: 3px solid #000000;
             background: white;
         }
-        
+
         .sch_smit {
             width: 54px; height: 40px;
             margin: 0; border: 0;
@@ -36,8 +38,33 @@
         .sch_smit:hover {
             background: rgba(2, 7, 0, 0.171);
         }
+
+        #modal .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        #modal .modal-content {
+            background-image: url('img/bg.jpg');
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+        }
+
+
+
     </style>
-    
+
     <title>Over Clock</title>
 </head>
 <body class="bg-dark fg-white h-vh-100 m4-cloak">
@@ -46,7 +73,7 @@
         data-toggle="#sidebar-toggle-3"
         id="sb3"
         data-shift=".shifted-content">
-     
+
      <ol class="sidebar-menu">
          <br>
          <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='searchsave' value='searchsave' />검색시 주소 저장</li>
@@ -67,7 +94,7 @@
 
          <li> <a href="user/logout.php" ><button class="button dark" value="login">로그아웃</button></a></li>
 
-         <?php 
+         <?php
          }else{
          ?>
 
@@ -92,7 +119,6 @@
      </div>
  </div>
 <center>
-    
     <div class="container-fluid start-screen h-150">
         <form data-role="validator"
           method="POST"
@@ -106,11 +132,11 @@
             </span>
                 <button type='submit' class='sch_smit'>검색</button>
         </form>
-        
+
         <div class="tiles-area clear">
             <br>
 
-            <br>  
+            <br>
             </div>
             <div class="clocks">
                 <div id="Date" OnClick="location.href ='#'"></div>
@@ -122,17 +148,17 @@
                       <li id="sec"></li>
                   </ul>
                 </div>
-           
+
 
             </div>
         </div>
     </div>
 
     <div class="tiles-area clear">
-            
+
         <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="">
-            
-           
+
+
             <div data-role="tile" class="bg-red" data-size="large"><!-- <img src ="img/fire.png" width="300" height="250"> -->
                 <!--실시간 순위-->
                 <p class="text-center" id="rank1"></p>
@@ -142,7 +168,7 @@
                 <p class="text-center" id="rank5"></p>
                 <span class="branding-bar-hot" style="font-size:35px;">핫 존</span>
             </div>
-         
+
         </div>
 
         <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
@@ -150,9 +176,24 @@
             <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
                 <span class="branding-bar">게시판</span>
             </a>
-            <div data-role="tile" class="bg-olive fg-white"><img src ="img/watching-tv.png" width="120" height="120">
-                <span class="branding-bar">킬링타임</span>
-            </div>
+
+            <a  data-role="tile" class="bg-olive fg-white"><img src ="img/watching-tv.png" value = "팝업창 호출" width="120" height="120">
+              <span class="branding-bar" id="modal_open" onclick="modal_open()">킬링타임</span>
+            <!--<button type="button" id="modal_open" img src ="img/watching-tv.png" onclick="open_pop" value = "팝업창 호출" width="120" height="120">모달 창 열기</button>-->
+              <div id="modal">
+                  <div class="modal-content">
+                    <a href = "http://www.youtube.com" align = "center" ><img src="youtube.png" width=" 300" height="150"></img></a>
+                    <a href = "https://www.netflix.com/browse" align = "center"><img src="netflix.png" width=" 300" height="150"></img></a>
+                    <a href = "https://www.twitch.tv/" align = "center" ><img src="twitch.png" width=" 300" height="150"></img></a>
+                    <a href = "http://www.afreecatv.com/" align = "center" ><img src="afreeca.jpg" width=" 300" height="150"></img></a>
+                    <a href = "https://play.sbs.co.kr/onair/pc/index.html" align = "center" ><img src="sbs.png" width=" 300" height="150"></img></a>
+
+                      <button type="button" id="modal_close">닫기</button>
+                  </div>
+              </div>
+
+
+            </a>
 
             <div data-role="tile" class="bg-amber fg-white"><img src ="img/ticket.png" width="120" height="120">
                     <span class="branding-bar">티켓팅 연습</span>
@@ -175,16 +216,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/metro.js"></script>
     <script src="index.js"></script>
-    
+
     <script href="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-    
+
 
     <script type="text/javascript">
         $(document).ready(function() {
 
         setInterval( function() {
-            
+
             // 데이터 가져오기
             $.ajax({
             url: "HeaderInfo.php",
@@ -229,6 +270,18 @@
 
         },1000 * 60 * 10);
     });
+
+
+    $("#modal_open").click(function(){
+        $("#modal").attr("style", "display:block");
+    });
+
+     $("#modal_close").click(function(){
+        $("#modal").attr("style", "display:none");
+    });
+
+
+
 
     </script>
 </body>
