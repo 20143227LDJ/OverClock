@@ -10,7 +10,7 @@
     <link href="index.css" rel="stylesheet">
     <link href="css/metro-all.css" rel="stylesheet">
     <style>
-        
+
 
         body{
           background-image: url('img/bg.jpg');
@@ -22,7 +22,7 @@
             border: 3px solid #000000;
             background: white;
         }
-        
+
         .sch_smit {
             width: 54px; height: 40px;
             margin: 0; border: 0;
@@ -70,8 +70,33 @@
             margin: 3px;
         }
 
+        #game_modal .G_modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        #game_modal .G_modal-content {
+            position:absolute;
+            background-image: url('img/bg.jpg');
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            bottom: 3px;
+            right: 10px;
+            height: 350px;
+            width: 350px;  /*Could be more or less, depending on screen size */
+        }
+
     </style>
-    
+
     <title>Over Clock</title>
 </head>
 
@@ -81,11 +106,11 @@
     data-toggle="#sidebar-toggle-3"
     id="sb1"
     data-shift=".shifted-content">
-     
+
         <a href="/" class="fg-white sub-action" onclick="Metro.sidebar.close('#sb1'); return false;">
             <span class="mif-arrow-left mif-2x" style="float:right;"></span>
         </a>
-        
+
         <ol class="sidebar-menu">
             <br>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='searchsave' value='searchsave' />검색시 주소 저장</li>
@@ -109,7 +134,7 @@
 
             <li> <a href="user/logout.php" ><button class="button dark" value="login">로그아웃</button></a></li>
 
-            <?php 
+            <?php
             }else{
             ?>
 
@@ -151,16 +176,16 @@
                 <span class='green_window' >
                     <input type='text' class='input_text' placeholder="사이트 링크" name="url">
                 </span>
-                
+
                 <button type='submit' class='sch_smit'>검색</button>
             </form>
-            
+
             <br>
             <br>
-                
+
             <div class="clocks">
                 <span class="hover text-center c-pointer" id="Date" OnClick="location.href ='#'"></span>
-                
+
                 <ul>
                     <li id="hours"></li>
                     <li id="point">:</li>
@@ -172,10 +197,10 @@
         </div>
 
         <div class="tiles-area clear">
-                
+
             <div class="tiles-grid tiles-group size-2 fg-white" data-size="wide"data-group-title="">
-                
-            
+
+
                 <div data-role="tile" class="bg-red" data-size="large"><!-- <img src ="img/fire.png" width="300" height="250"> -->
                     <!--실시간 순위-->
                     <p class="text-center" id="rank1"></p>
@@ -185,7 +210,7 @@
                     <p class="text-center" id="rank5"></p>
                     <span class="branding-bar-hot" style="font-size:35px;">핫 존</span>
                 </div>
-            
+
             </div>
 
             <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
@@ -193,19 +218,19 @@
                 <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
                      <span class="branding-bar">게시판</span>
                 </a>
- 
+
                 <a  data-role="tile" id="modal_open" class="bg-olive fg-white"><img src ="img/watching-tv.png" value = "팝업창 호출" width="120" height="120">
                     <span class="branding-bar" >킬링타임</span>
                     <!--<button type="button" id="modal_open" img src ="img/watching-tv.png" onclick="open_pop" value = "팝업창 호출" width="120" height="120">모달 창 열기</button>-->
                 </a>
 
-                    
- 
-                <div data-role="tile" class="bg-amber fg-white"><img src ="img/ticket.png" width="120" height="120">
+
+
+                <div data-role="tile" id="game_modal_open" class="bg-amber fg-white"><img src ="img/ticket.png" width="120" height="120">
                          <span class="branding-bar">티켓팅 연습</span>
                          <span class="badge-bottom"></span>
                 </div>
- 
+
                 <div data-role="tile" class="bg-cyan fg-white" data-effect="animate-slide-up">
                          <div class="slide"><img src ="img/oc.png" width="150" height="150"></div>
                          <div class="slide"><img src ="img/bus.png" width="150" height="150"></div>
@@ -225,6 +250,12 @@
                     </div>
                 </div>
 
+                <div id="G_modal" style="display:none">
+                    <div class="G_modal-content">
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -235,18 +266,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/metro.js"></script>
     <script src="index.js"></script>
-    
+
     <script href="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
-    
+
 
     <script type="text/javascript">
 
         $(document).ready(function() {
-            $("input:radio[type=radio]").click(function() 
-            { 
-                radioCheck(); 
-            }) 
-        
+            $("input:radio[type=radio]").click(function()
+            {
+                radioCheck();
+            })
+
 
         setInterval( function() {
 
@@ -268,7 +299,7 @@
                     // 시간 타이머
                     if(document.getElementById("setTime").value == jbSplit[0] + ":" + jbSplit[1] + ":" + jbSplit[2]){ // 사용자가 설정한 시간과 서버시간이 맞으면 조건문 실행
                         document.getElementById( 'audio' ).setAttribute( 'src', "audio/test.mp3"); // 노래 재생
-                        
+
                         <?php
                             $to = $_SESSION['userid'];
 
@@ -321,13 +352,26 @@
         var str = $( "#modal" ).attr( "style" );
         if(str == "display:none"){
             $("#modal").attr("style", "display:block");
+            $("#G_modal").attr("style","display:none");
         }else{
             $("#modal").attr("style", "display:none");
         }
     });
 
-    function radioCheck()	
-    { 
+
+    $("#game_modal_open").click(function(){
+        var str = $( "#G_modal" ).attr( "style" );
+        if(str == "display:none"){
+            $("#G_modal").load('game/ticket.html').dialog({modal:true});
+            $("#G_modal").attr("style", "display:block");
+            $("#modal").attr("style","display:none");
+        }else{
+            $("#G_modal").attr("style", "display:none");
+        }
+    });
+
+    function radioCheck()
+    {
         var radio1 = document.getElementById('radio1');
         var radio2 = document.getElementById('radio2');
         var radio3 = document.getElementById('radio3');
@@ -343,7 +387,7 @@
         if($(radio3).is(":checked")){
             alert("radio3");
         }
-        return false; 
+        return false;
     }
 
     </script>
