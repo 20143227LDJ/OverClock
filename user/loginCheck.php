@@ -15,7 +15,7 @@
  if($row['id'] == $id && $row['pwd'] == $password) //db에서 id필드의 값과 pwd필드의 값을 각각 비교
  {
      $_SESSION['userid'] = $id;
-     $_SESSION['username'] = $row['name'];
+     $_SESSION['username'] = $row['username'];
  }
  if(isset($_SESSION['userid']))
  {

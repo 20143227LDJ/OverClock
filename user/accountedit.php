@@ -1,3 +1,16 @@
+<?php
+ session_start(); // 세션 시작
+
+ $mysqli = new mysqli("localhost", "root", "123456", "overclock");
+
+ $id=$_SESSION['userid'];
+
+ $sql = "SELECT * FROM user_info WHERE id='$id'";
+ $result = $mysqli->query($sql);
+ $row = mysqli_fetch_assoc($result);
+
+?>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,7 +19,7 @@
 
     <link href="../css/metro-all.css" rel="stylesheet">
 
-    <title>Account</title>
+    <title>Edit</title>
 
     <style>
         .login-form {
@@ -22,7 +35,7 @@
     <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow"
           data-role="validator"
           method="POST"
-          action="accountSave.php"
+          action="accounteditSave.php"
           data-clear-invalid="2000"
           data-interactive-check="true"
           data-on-error-form="invalidForm"
@@ -31,15 +44,18 @@
 
         <hr class="thin mt-4 mb-4 bg-white">
         <div class="form-group">
-            <input type="text" data-role="input" data-prepend="<span class='mif-envelop'>" placeholder="이메일" data-validate="required email" name="id">
+            <input type="text" data-role="input" data-prepend="<span class='mif-envelop'>" placeholder="이메일" data-validate="required email" name="id" 
+            value="<?php echo $row['id']; ?>" readonly>
                 <span class="invalid_feedback">이메일 형식으로 입력하세요</span>
         </div>
         <div class="form-group">
-            <input type="text" data-role="input" data-prepend="<span class='mif-user'>" placeholder="이름" data-validate="required minlength=2" name="name">
+            <input type="text" data-role="input" data-prepend="<span class='mif-user'>" placeholder="이름" data-validate="required minlength=2" name="name"
+            value="<?php echo $row['username']; ?>">
                 <span class="invalid_feedback">2자 이상 입력하세요</span>
         </div>
         <div class="form-group">
-            <input type="password" id="password1" data-role="input" data-prepend="<span class='mif-key'>" placeholder="비밀번호" data-validate="required minlength=6" name="password">
+            <input type="password" id="password1" data-role="input" data-prepend="<span class='mif-key'>" placeholder="비밀번호" data-validate="required minlength=6" name="password"
+            value="<?php echo $row['pwd']; ?>">
                 <span class="invalid_feedback">6자 이상 입력하세요</span>
         </div>
         <div class="form-group">
@@ -47,11 +63,12 @@
             <div  style="color:#CE352C; font-size:14px" id="checkText"></div>
         </div>
         <div class="form-group">
-            <input type="text" data-role="input" data-prepend="<span class='mif-school'>" placeholder="전화번호(01012345678)" data-validate="required minlength=7" name="phoneNum">
+            <input type="text" data-role="input" data-prepend="<span class='mif-school'>" placeholder="전화번호(01012345678)" data-validate="required minlength=7" name="phoneNum"
+            value="<?php echo $row['phoneNum']; ?>">
             <span class="invalid_feedback">-빼고 입력하세요</span>
         </div>
         <div class="form-group mt-10">
-            <button class="button" id="btnCheck">가입하기</button>
+            <button class="button" id="btnCheck">수정하기</button>
             
         </div>
     </form>
@@ -60,14 +77,6 @@
     <script src="../js/metro.js"></script>
     
     <script>
-        // 회원가입 성공시 회원가입필드가 사라짐
-        function invalidForm(){
-            var form  = $(this);
-            form.addClass("ani-horizontal");
-            setTimeout(function(){
-                form.removeClass("ani-horizontal");
-            }, 1000);
-        }
 
         // 비밀번호 확인
         window.onload = function(){
@@ -83,6 +92,7 @@
                 
                 if(pass1Value == pass2Value){
                     checkText.innerHTML = "비밀번호 일치";
+                    
                 }
                 else{
                     checkText.innerHTML = "비밀번호 불일치";
