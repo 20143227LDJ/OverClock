@@ -69,32 +69,6 @@
         #play{
             margin: 3px;
         }
-
-        #uchat_modal .chat_modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        #uchat_modal .chat_modal-content {
-            position:absolute;
-            background-image: url('img/bg.jpg');
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            bottom: 3px;
-            right: 10px;
-            height: 350px;
-            width: 350px;  /*Could be more or less, depending on screen size */
-        }
-
     </style>
 
     <title>Over Clock</title>
@@ -379,6 +353,7 @@
     </script>
 </body>
 <footer>
+  <!-- 유챗 새창으로 구현-->
 <a style="float:right;" class="mif-chat mif-5x" onclick="window.open('uchat.html', '_blank', 'width=620px,height=550px'); return false;"></a>
 </footer>
 
