@@ -88,12 +88,13 @@
         
         <ol class="sidebar-menu">
             <br>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='searchsave' value='searchsave' />검색시 주소 저장</li>
             <br>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='serverauto' value='serverauto' />오픈 시간 자동 접속</li>
             <br>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox"name='kakao' value='kakao' />카카오톡 알림 받기</li>
             <br>
+            <li>&nbsp;&nbsp;&nbsp;※미리 알림 (음성,메시지) </li>
+            
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="fm" id="radio1" checked>5분전</li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="tm" id="radio2">10분전</li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="chk_info" value="hfm" id="radio3">30분전</li>
@@ -123,7 +124,7 @@
             <li> <a><button class="button dark" value="linkalarm">링크 알림 설정</button></a></li>
             <br>
 
-            <input data-role="timepicker" id="setTime">
+            <input data-role="timepicker" id="setTime"data-distance="1">
 
         </ol>
     </aside>
@@ -201,7 +202,7 @@
 
                     
  
-                <div data-role="tile" class="bg-amber fg-white"><img src ="img/ticket.png" width="120" height="120">
+                <div data-role="tile" class="bg-amber fg-white" onclick="window.open('game/ticket.html', '_blank', 'width=620px,height=550px,toolbars=no,scrollbars=no'); return false;"><img src ="img/ticket.png" width="120" height="120">
                          <span class="branding-bar">티켓팅 연습</span>
                          <span class="badge-bottom"></span>
                 </div>
@@ -218,7 +219,7 @@
                         <a href = "http://www.youtube.com" align = "center" ><img id="play" src="img/youtube.png" width=" 100" height="100"></img></a>
                         <a href = "https://www.netflix.com/browse" align = "center"><img id="play" src="img/netflix.png" width=" 100" height="100"></img></a>
                         <a href = "https://www.twitch.tv/" align = "center" ><img id="play" src="img/twitch.png" width=" 100" height="100"></img></a>
-                        <a href = "http://www.afreecatv.com/" align = "center" ><img id="play" src="img/afreeca.jpg" width=" 100" height="100"></img></a>
+                        <a href = "http://www.afreecatv.com/" align = "center" ><img id="play" src="img/afreeca.png" width=" 100" height="100"></img></a>
                         <a href = "https://play.sbs.co.kr/onair/pc/index.html" align = "center" ><img id="play" src="img/sbs.png" width=" 100" height="100"></img></a>
                         <a href = "http://onair.kbs.co.kr/" align = "center" ><img id="play" src="img/kbs.png" width=" 100" height="100"></img></a>
 
@@ -291,11 +292,14 @@
             cache : false,
             success: function(data){ // rankDB.php 파일에서 echo 결과값이 data
                     var jbSplit = data.split('\n');
-                    $('#rank1').html(jbSplit[0] + "   검색 횟수 : " + jbSplit[1]);
-                    $('#rank2').html(jbSplit[2] + "   검색 횟수 : " + jbSplit[3]);
-                    $('#rank3').html(jbSplit[4] + "   검색 횟수 : " + jbSplit[5]);
-                    $('#rank4').html(jbSplit[6] + "   검색 횟수 : " + jbSplit[7]);
-                    $('#rank5').html(jbSplit[8] + "   검색 횟수 : " + jbSplit[9]);
+                    if(jbSplit[0] != ""){
+                    $('#rank1').html(jbSplit[0] + "   현재 1위 : " + jbSplit[1]);
+                    $('#rank2').html(jbSplit[2] + "   현재 2위 : " + jbSplit[3]);
+                    $('#rank3').html(jbSplit[4] + "   현재 3위 : " + jbSplit[5]);
+                    $('#rank4').html(jbSplit[6] + "   현재 4위 : " + jbSplit[7]);
+                    $('#rank5').html(jbSplit[8] + "   현재 5위 : " + jbSplit[9]);
+                    }
+                    else $('#rank1').html("  \n\n\n\n\n 현재 데이터가 존재하지 않습니다. ");
                 }
             });
 
