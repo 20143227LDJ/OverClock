@@ -85,7 +85,7 @@
     id="sb1"
     data-shift=".shifted-content">
 
-        <div class="sidebar-header" data-image="img/oz.jpg">
+        <div class="sidebar-header" data-image="img/logo.PNG">
             <a href="/" class="fg-black sub-action" onclick="Metro.sidebar.close('#sb1'); return false;">
                 <span class="mif-arrow-left mif-2x" style="float:right;"></span>
             </a>
@@ -112,7 +112,8 @@
             ?>
 
             <br>
-            <li>&nbsp;&nbsp;&nbsp;※ 예매 시간 입력 </li>
+            <li>&nbsp;&nbsp;&nbsp;※ 예매 시간 입력/사이트 접속시간 </li>
+            <li>&nbsp;&nbsp;&nbsp; - 예약 메시지의 경우 하단 버튼을 클릭해주세요. </li>
             <form method="POST" action="coolSMS/sendSMS.php"> 
             <input type="text" data-role="calendarpicker" id="setDate" data-input-format="%d%m%y" name="date">
             <input data-role="timepicker" id="setTime" data-distance="1" name="time">
@@ -195,7 +196,7 @@
 
             <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
 
-                <a href="http://tmdemr.dothome.co.kr" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
+               <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white" onclick="window.open('http://tmdemr.dothome.co.kr', '_blank', 'width=620px,height=550px,toolbars=no,scrollbars=no'); return false;"><img src ="img/consultation.png" width="120" height="120">
                      <span class="branding-bar">게시판</span>
                 </a>
  
@@ -218,12 +219,13 @@
                 <div id="modal" style="display:none">
                     <div class="modal-content">
 
-                        <a href = "http://www.youtube.com" align = "center" ><img id="play" src="img/youtube.png" width=" 100" height="100"></img></a>
-                        <a href = "https://www.netflix.com/browse" align = "center"><img id="play" src="img/netflix.png" width=" 100" height="100"></img></a>
-                        <a href = "https://www.twitch.tv/" align = "center" ><img id="play" src="img/twitch.png" width=" 100" height="100"></img></a>
-                        <a href = "http://www.afreecatv.com/" align = "center" ><img id="play" src="img/afreeca.png" width=" 100" height="100"></img></a>
-                        <a href = "https://play.sbs.co.kr/onair/pc/index.html" align = "center" ><img id="play" src="img/sbs.png" width=" 100" height="100"></img></a>
-                        <a href = "http://onair.kbs.co.kr/" align = "center" ><img id="play" src="img/kbs.png" width=" 100" height="100"></img></a>
+                        <a href = "http://www.youtube.com" align = "center" target="_blank" ><img id="play" src="img/youtube.png" width=" 100" height="100"></img></a>
+                            <a href = "https://www.netflix.com/browse" align = "center" target="_blank"><img id="play" src="img/netflix.png" width=" 100" height="100"></img></a>
+                            <a href = "https://www.twitch.tv/" align = "center"  target="_blank"><img id="play" src="img/twitch.png" width=" 100" height="100"></img></a>
+                            <a href = "http://www.afreecatv.com/" align = "center" target="_blank" ><img id="play" src="img/afreeca.png" width=" 100" height="100"></img></a>
+                            <a href = "https://play.sbs.co.kr/onair/pc/index.html" align = "center" target="_blank" ><img id="play" src="img/sbs.png" width=" 100" height="100"></img></a>
+                            <a href = "http://onair.kbs.co.kr/" align = "center" target="_blank" ><img id="play" src="img/kbs.png" width=" 100" height="100"></img>
+                        </a>
 
                     </div>
                 </div>
