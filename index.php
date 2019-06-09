@@ -113,8 +113,13 @@
 
             <br>
             <li>&nbsp;&nbsp;&nbsp;※ 예매 시간 입력 </li>
-            <input data-role="datepicker" data-value="1972-12-21">
-            <input data-role="timepicker" id="setTime" data-distance="1">
+            <form method="POST" action="coolSMS/sendSMS.php"> 
+            <input type="text" data-role="calendarpicker" id="setDate" data-input-format="%d%m%y" name="date">
+            <input data-role="timepicker" id="setTime" data-distance="1" name="time">
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button class="button dark" value="linkalarm">예약 메시지 보내기</button>
+            </form>
+            
             <br>
 
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox" id='autoconnect' >오픈 시간 자동 접속</li>
@@ -124,26 +129,6 @@
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="sound1" identifier="sound">5분전</li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="sound2" identifier="sound">10분전</li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="sound3" identifier="sound">30분전</li>
-
-            <br>
-
-            <li>&nbsp;&nbsp;&nbsp;※ 미리 알림 (이메일) </li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="email1" identifier="email">5분전</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="email2" identifier="email">10분전</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="email3" identifier="email">30분전</li>
-
-            <br>
-
-            <form method="POST" action="sendmail.php">
-            <p><input type="text" data-role="input" placeholder="이메일" name="email"><button class="button dark" id="btnCheck">전송하기</button></p>
-            
-            </form>
-
-            <audio src="" id="audio" autoplay></audio> <!-- 노래 부분 -->
-
-            <br>
-            <li> <a><button class="button dark" value="linkalarm">링크 알림 설정</button></a></li>
-            <br>
 
         </ol>
     </aside>
@@ -210,7 +195,7 @@
 
             <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
 
-                <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
+                <a href="http://tmdemr.dothome.co.kr" data-role="tile" class="bg-violet fg-white"><img src ="img/consultation.png" width="120" height="120">
                      <span class="branding-bar">게시판</span>
                 </a>
  
@@ -264,15 +249,16 @@
         var email1check; // 5분전 라디오 버튼(이메일)
         var email2check; // 10분전 라디오 버튼(이메일)
         var email3check; // 30분전 라디오 버튼(이메일)
+        var sound;
+        var email;
 
         $(document).ready(function() {
-            // 라디오 버튼(음성) 체크
+            // 라디오 버튼 체크
             $("input[name=radio]").click(function() 
             { 
                 radioCheck(); 
             })
 
-            //  timepicker에서 30분전, 10분전, 5분전 설정 값 가져오기
             function radioCheck()
             {
                 var sound1 = document.getElementById('sound1');
@@ -282,22 +268,40 @@
                 var email2 = document.getElementById('email2');
                 var email3 = document.getElementById('email3');
 
-                if($(sound1).is(":checked")) sound1check = true;
-                    else sound1check = false;
+                if($(sound1).is(":checked")) {
+                    sound1check = true;
+                    sound = true;
+                    email = false;
+                }else sound1check = false;
                 
-                if($(sound2).is(":checked")) sound2check = true;
-                    else sound2check = false;
+                if($(sound2).is(":checked")) {
+                    sound2check = true;
+                    sound = true;
+                    email = false;
+                }else sound2check = false;
 
-                if($(sound3).is(":checked")) sound3check = true;
-                    else sound3check = false;
-                if($(email1).is(":checked")) email1check = true;
-                    else email1check = false;
+                if($(sound3).is(":checked")) {
+                    sound3check = true;
+                    sound = true;
+                    email = false;
+                }else sound3check = false;
+                if($(email1).is(":checked")) {
+                    email1check = true;
+                    sound = false;
+                    email = true;
+                } else email1check = false;
                 
-                if($(email2).is(":checked")) email2check = true;
-                    else email2check = false;
+                if($(email2).is(":checked")) {
+                    email2check = true;
+                    sound = false;
+                    email = true;
+                }else email2check = false;
 
-                if($(email3).is(":checked")) email3check = true;
-                    else email3check = false;
+                if($(email3).is(":checked")) {
+                    email3check = true;
+                    sound = false;
+                    email = true;
+                }else email3check = false;
                 
                 return false; 
             }
@@ -329,9 +333,7 @@
                         $("#Date").attr( "OnClick", "location.href ='" + serverTime[3] + ":" + serverTime[4] + "'" );
 
                         checkBox(); // 체크 박스
-                        radioButtonSound(); // 라디오 버튼(음성)
-                        radisoButtonEmail(); // 라디오 버튼(이메일)
-
+                        radioButton(); // 라디오 버튼(음성)
                     }
                 });
 
@@ -355,42 +357,31 @@
 
             },1000); // 1초 마다 데이터 가지고 옴
 
-            setInterval( function() {
-
-                // 실시간 검색 db 데이터 삭제
-                $.ajax({
-                url: "rank/rankDBdelete.php",
-                cache : false,
-                success: function(data){ // HeaderInfo.php 파일에서 echo 결과값이 data
-                    }
-                });
-
-                },1000 * 60 * 10); // 10분마다 실시간 검색 테이블 데이터 삭제
         });
 
-        // 모달
-        $("#modal_open").click(function(){
-            var str = $( "#modal" ).attr( "style" );
-            if(str == "display:none"){
-                $("#modal").attr("style", "display:block");
-            }else{
-                $("#modal").attr("style", "display:none");
-            }
-        });
-
-        function checkBox(){
-            // timepicker에서 설정한값과 서버시간이 맞으면 실행
-            if(serverTime[0] + ":" + serverTime[1] + ":" + serverTime[2] == document.getElementById("setTime").value || 
-                serverTime[0] + ":" + serverTime[1] + ":" + serverTime[2]== document.getElementById("setTime").value){
-
-                if(checkBoxCheck){ // 체크박스가 체크되어 있으면 실행
-                    window.open(serverTime[3] + ":" + serverTime[4] , '_blank'); 
+            // 모달
+            $("#modal_open").click(function(){
+                var str = $( "#modal" ).attr( "style" );
+                if(str == "display:none"){
+                    $("#modal").attr("style", "display:block");
+                }else{
+                    $("#modal").attr("style", "display:none");
                 }
-                
+            });
+
+            function checkBox(){
+                // timepicker에서 설정한값과 서버시간이 맞으면 실행
+                if(serverTime[0] + ":" + serverTime[1] + ":" + serverTime[2] == document.getElementById("setTime").value ){
+
+                    if(checkBoxCheck){ // 체크박스가 체크되어 있으면 실행
+                        window.open(serverTime[3] + ":" + serverTime[4] , '_blank'); 
+                    }
+                    
+                }
             }
-        }
             // 라디오 버튼(사운드) 조건 주는 함수
-            function radioButtonSound(){
+            function radioButton(){
+                //  timepicker에서 30분전, 10분전, 5분전 설정 값 가져오기
                 var setTime = document.getElementById("setTime").value;
                 var setTimeSplit = setTime.split(':'); // setTime ":" 기준으로 스플릿
                 var serverTimeHour = (serverTime[0] < 10 ? "0" : "" ) + serverTime[0]; // 서버시간 hour 자리수 맞추기
@@ -398,7 +389,7 @@
                 var setTimeHour;
                 var setTimeMin;
 
-                if(sound1check){ // 5분 전
+                if(sound1check || email1check){ // 5분 전
                     if(setTimeSplit[1] - 5 < 0){
                         setTimeHour = setTimeSplit[0] - 1;
                         setTimeMin = 60 + (setTimeSplit[1] - 5);
@@ -414,7 +405,7 @@
                     }
                 }
 
-                if(sound2check){ // 10분 전
+                if(sound2check || email2check){ // 10분 전
                     if(setTimeSplit[1] - 10 < 0){
                         setTimeHour = setTimeSplit[0] - 1;
                         setTimeMin = 60 + (setTimeSplit[1] - 10);
@@ -430,7 +421,7 @@
                     }
                 }
 
-                if(sound3check){ // 30분 전
+                if(sound3check || email3check){ // 30분 전
                     if(setTimeSplit[1] - 30 < 0){
                         setTimeHour = setTimeSplit[0] - 1;
                         setTimeMin = 60 + (setTimeSplit[1] - 30);
@@ -447,75 +438,15 @@
                 }
 
                 if(serverTimeHour + ":" + serverTime[1] + ":" + serverTimeSec == setTimeHour + ":" + setTimeMin + ":" + setTimeSplit[2]){
-                    $("#audio").attr( 'src', "audio/notice.mp3"); // 노래 재생
+                    if(sound) { // 노래 재생
+                        $("#audio").attr( 'src', "audio/notice.mp3");
+                     } 
+                    if(email){ // 이메일 전송
+                        window.open('sendmail.php', '_blank', 'width=620px,height=550px');
+                    } 
                 }
                 
             }
-
-        function radisoButtonEmail(){
-            var setTime = document.getElementById("setTime").value;
-            var setTimeSplit = setTime.split(':'); // setTime ":" 기준으로 스플릿
-            var serverTimeHour = (serverTime[0] < 10 ? "0" : "" ) + serverTime[0]; // 서버시간 hour 자리수 맞추기
-            var serverTimeSec = (serverTime[2] < 10 ? "0" : "" ) + serverTime[2]; // 서버시간 Sec 자리수 맞추기
-            var setTimeHour;
-            var setTimeMin;
-
-            if(email1check){ // 5분 전
-                if(setTimeSplit[1] - 5 < 0){
-                    setTimeHour = setTimeSplit[0] - 1;
-                    setTimeMin = 60 + (setTimeSplit[1] - 5);
-                    // 연산 후 자리수가 달라져서 넣음
-                    setTimeHour = (setTimeHour < 10 ? "0" : "") + setTimeHour;
-                    setTimeMin = (setTimeMin < 10 ? "0" : "") + setTimeMin;
-                }
-                else{
-                    setTimeHour = setTimeSplit[0];
-                    setTimeMin = setTimeSplit[1] - 5;
-                    // 연산 후 자리수가 달라져서 넣음
-                    setTimeMin = (setTimeMin < 10 ? "0" : "") + setTimeMin;
-                }
-            }
-
-            if(email2check){ // 10분 전
-                if(setTimeSplit[1] - 10 < 0){
-                    setTimeHour = setTimeSplit[0] - 1;
-                    setTimeMin = 60 + (setTimeSplit[1] - 10);
-                    // 연산 후 자리수가 달라져서 넣음
-                    setTimeHour = (setTimeHour < 10 ? "0" : "") + setTimeHour;
-                    setTimeMin = (setTimeMin < 10 ? "0" : "") + setTimeMin;
-                }
-                else{
-                    setTimeHour = setTimeSplit[0];
-                    setTimeMin = setTimeSplit[1] - 10;
-                    // 연산 후 자리수가 달라져서 넣음
-                    setTimeMin = (setTimeMin < 10 ? "0" : "") + setTimeMin;
-                }
-            }
-
-            if(email3check){ // 30분 전
-                if(setTimeSplit[1] - 30 < 0){
-                    setTimeHour = setTimeSplit[0] - 1;
-                    setTimeMin = 60 + (setTimeSplit[1] - 30);
-                    // 연산 후 자리수가 달라져서 넣음
-                    setTimeHour = (setTimeHour < 10 ? "0" : "") + setTimeHour;
-                    setTimeMin = (setTimeMin < 10 ? "0" : "") + setTimeMin;
-                }
-                else{
-                    setTimeHour = setTimeSplit[0];
-                    setTimeMin = setTimeSplit[1] - 30;
-                    // 연산 후 자리수가 달라져서 넣음
-                    setTimeMin = (setTimeMin < 10 ? "0" : "") + setTimeMin;
-                }
-            }
-
-            if(serverTimeHour + ":" + serverTime[1] + ":" + serverTimeSec == setTimeHour + ":" + setTimeMin + ":" + setTimeSplit[2] ){
-                window.open('sendmail.php', '_blank', 'width=620px,height=550px');
-            }
-            console.log(serverTimeHour + ":" + serverTime[1] + ":" + serverTimeSec);
-            console.log(setTimeHour + ":" + setTimeMin + ":" + setTimeSplit[2]);
-            
-            
-        }
 
     </script>
 </body>
