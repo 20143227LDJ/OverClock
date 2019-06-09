@@ -9,7 +9,6 @@
 
     <link href="index.css" rel="stylesheet">
     <link href="css/metro-all.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/datepicker3.css" />
 
     <style>
         
@@ -114,23 +113,30 @@
 
             <br>
             <li>&nbsp;&nbsp;&nbsp;※ 예매 시간 입력 </li>
-            <input data-role="timepicker" id="setTime" data-value="0" data-distance="1">
+            <input data-role="timepicker" id="setTime" data-distance="1">
             <br>
 
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" data-role="checkbox" id='autoconnect' >오픈 시간 자동 접속</li>
             <br>
 
             <li>&nbsp;&nbsp;&nbsp;※ 미리 알림 (음성) </li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="sound" id="sound1">5분전</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="sound" id="sound2">10분전</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="sound" id="sound3">30분전</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="sound1" identifier="sound">5분전</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="sound2" identifier="sound">10분전</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="sound3" identifier="sound">30분전</li>
 
             <br>
 
-            <li>&nbsp;&nbsp;&nbsp;※ 미리 알림 (이메일)  *로그인 필요* </li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="email" id="email1">5분전</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="email" id="email2">10분전</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="email" id="email3">30분전</li>
+            <li>&nbsp;&nbsp;&nbsp;※ 미리 알림 (이메일) </li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="email1" identifier="email">5분전</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="email2" identifier="email">10분전</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" data-role="radio" data-style="2" name="radio" id="email3" identifier="email">30분전</li>
+
+            <br>
+
+            <form method="POST" action="sendmail.php">
+            <p><input type="text" data-role="input" placeholder="이메일" name="email"><button class="button dark" id="btnCheck">전송하기</button></p>
+            
+            </form>
 
             <audio src="" id="audio" autoplay></audio> <!-- 노래 부분 -->
 
@@ -245,12 +251,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/metro.js"></script>
-    <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="js/bootstrap-datepicker.kr.js"></script>
-    <script src="index.js"></script>
-    
-    <script href="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
-    
+    <script src="index.js"></script> 
 
     <script type="text/javascript">
         //var url;
@@ -265,17 +266,20 @@
 
         $(document).ready(function() {
             // 라디오 버튼(음성) 체크
-            $("input[name=sound]").click(function() 
+            $("input[name=radio]").click(function() 
             { 
-                radioCheckSound(); 
+                radioCheck(); 
             })
 
             //  timepicker에서 30분전, 10분전, 5분전 설정 값 가져오기
-            function radioCheckSound()
+            function radioCheck()
             {
                 var sound1 = document.getElementById('sound1');
                 var sound2 = document.getElementById('sound2');
                 var sound3 = document.getElementById('sound3');
+                var email1 = document.getElementById('email1');
+                var email2 = document.getElementById('email2');
+                var email3 = document.getElementById('email3');
 
                 if($(sound1).is(":checked")) sound1check = true;
                     else sound1check = false;
@@ -285,23 +289,6 @@
 
                 if($(sound3).is(":checked")) sound3check = true;
                     else sound3check = false;
-                
-                return false; 
-            }
-
-            // 라디오 버튼(이메일) 체크
-            $("input[name=email]").click(function() 
-            { 
-                radioCheckEmail(); 
-            })
-
-            //  timepicker에서 30분전, 10분전, 5분전 설정 값 가져오기
-            function radioCheckEmail()
-            {
-                var email1 = document.getElementById('email1');
-                var email2 = document.getElementById('email2');
-                var email3 = document.getElementById('email3');
-
                 if($(email1).is(":checked")) email1check = true;
                     else email1check = false;
                 
@@ -520,32 +507,12 @@
                 }
             }
 
-            /* 해결 못함
             if(serverTimeHour + ":" + serverTime[1] + ":" + serverTimeSec == setTimeHour + ":" + setTimeMin + ":" + setTimeSplit[2] ){
-                
-                <?php
-                    $check = true;
-                ?>
+                window.open('sendmail.php', '_blank', 'width=620px,height=550px');
             }
-                // 메일 보내기
-                <?php
-                    /*
-                    $check = false;
-
-                    if($check){
-                        $to = $_SESSION['userid'];
-                        $subject = "안녕하세요! OverClock입니다.";
-                        $contents = "시간이 다 되었습니다!!!\n";
-                        $headers = "From: tovin4613@naver.com\r\n";
-
-                        mail($to, $subject, $contents, $headers);
-                    }
-                    */
-                ?>
-            
             console.log(serverTimeHour + ":" + serverTime[1] + ":" + serverTimeSec);
             console.log(setTimeHour + ":" + setTimeMin + ":" + setTimeSplit[2]);
-            */
+            
             
         }
 
@@ -553,6 +520,6 @@
 </body>
 <footer>
   <!-- 유챗 새창으로 구현-->
-<a style="float:right;" id="uchat" class="mif-chat mif-5x c-pointer" onclick="window.open('uchat.html', '_blank', 'width=620px,height=550px'); return false;"></a>
+    <a style="float:right;" id="uchat" class="mif-chat mif-5x c-pointer" onclick="window.open('uchat.html', '_blank', 'width=620px,height=550px'); return false;"></a>
 </footer>
 </html>
