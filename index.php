@@ -113,6 +113,7 @@
 
             <br>
             <li>&nbsp;&nbsp;&nbsp;※ 예매 시간 입력 </li>
+            <input data-role="datepicker" data-value="1972-12-21">
             <input data-role="timepicker" id="setTime" data-distance="1">
             <br>
 
