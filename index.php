@@ -113,12 +113,12 @@
 
             <br>
             <li>&nbsp;&nbsp;&nbsp;※ 예매 시간 입력/사이트 접속시간 </li>
-            <li>&nbsp;&nbsp;&nbsp; - 예약 메시지의 경우 하단 버튼을 클릭해주세요. </li>
             <form method="POST" action="coolSMS/sendSMS.php"> 
             <input type="text" data-role="calendarpicker" id="setDate" data-input-format="%d%m%y" name="date">
             <input data-role="timepicker" id="setTime" data-distance="1" name="time">
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<button class="button dark" value="linkalarm">예약 메시지 보내기</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="button dark" value="linkalarm"data-role="hint"
+            data-hint-text="설정한 시간에 예약 메시지가 전송됩니다"data-cls-hint="bg-gray fg-black drop-shadow">예약 메시지 보내기</button>
             </form>
             
             <br>
