@@ -30,6 +30,7 @@ $options->timestamp = (string)time();
 $options->to = $phoneNum; // 받는 번호
 $options->from = '01094354116'; // 보내는 번호
 $options->text = '티켓팅 준비할 시간입니다.'; // 문자 내용
+$options->text = $options->text. 'http://naver.com';
 $options->datetime = $datereplace. $timereplace;
 $options->app_version = 'test app 1.2';  // application name and version	 
 $options->type = 'SMS'; // SMS, MMS, LMS, ATA

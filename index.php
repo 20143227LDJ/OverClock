@@ -197,7 +197,7 @@
             <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="">
 
                 <a href="/board_gnoo" data-role="tile" class="bg-violet fg-white"
-                onclick="window.open('http://tmdemr.dothome.co.kr', '_blank', 'width=620px,height=550px,toolbars=no,scrollbars=no'); return false;">
+                onclick="window.open('http://tmdemr.dothome.co.kr', '_blank', 'width=620px,height=550px,toolbars=no,scrollbars=no'); return false;" >
                 <img src ="img/consultation.png" width="120" height="120">
                     <span class="branding-bar">게시판</span><!-- XE로 게시판 기능을 추가한 웹 페이지를 팝업으로 띄워준다.-->
                 </a>
