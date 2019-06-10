@@ -19,18 +19,16 @@
     </style>
 </head>
 <body class="h-vh-100 bg-dark">
-
-    <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow"
-          data-role="validator"
-          method="POST"
-          action="loginCheck.php"
-          data-clear-invalid="2000"
-          data-on-error-form="invalidForm"
-          data-on-validate-form="validateForm">
+    <!--로그인에 필요한 정보 입력-->
+    <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow" method="POST" 
+                data-role="validator" action="loginCheck.php"
+                data-clear-invalid="2000" data-on-error-form="invalidForm"
+                data-on-validate-form="validateForm" data-interactive-check="true">
         <span class="mif-vpn-lock mif-4x place-right" style="margin-top: -10px;"></span>
 
         <hr class="thin mt-4 mb-4 bg-white">
         <div class="form-group">
+            <!--text형식으로 input값 입력-->
             <input type="text" data-role="input" data-prepend="<span class='mif-envelop'>" placeholder="이메일" data-validate="required email" name="id">
         </div>
         <div class="form-group">

@@ -18,19 +18,17 @@
     </style>
 </head>
 <body class="h-vh-100 bg-dark">
+    <!--회원가입에 필요한 정보 입력-->
+    <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow" method="POST" 
+        data-role="validator" action="accountSave.php"
+        data-clear-invalid="2000" data-on-error-form="invalidForm"
+        data-on-validate-form="validateForm" data-interactive-check="true">
 
-    <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow"
-          data-role="validator"
-          method="POST"
-          action="accountSave.php"
-          data-clear-invalid="2000"
-          data-interactive-check="true"
-          data-on-error-form="invalidForm"
-          data-on-validate-form="validateForm">
         <span class="mif-user-plus mif-4x place-right" style="margin-top: -10px;"></span>
 
         <hr class="thin mt-4 mb-4 bg-white">
         <div class="form-group">
+            <!--text형식으로 input값 입력-->
             <input type="text" data-role="input" data-prepend="<span class='mif-envelop'>" placeholder="이메일" data-validate="required email" name="id">
                 <span class="invalid_feedback">이메일 형식으로 입력하세요</span>
         </div>
@@ -47,12 +45,11 @@
             <div  style="color:#CE352C; font-size:14px" id="checkText"></div>
         </div>
         <div class="form-group">
-            <input type="text" data-role="input" data-prepend="<span class='mif-school'>" placeholder="전화번호(01012345678)" data-validate="required minlength=7" name="phoneNum">
+            <input type="text" data-role="input" data-prepend="<span class='mif-phone'>" placeholder="전화번호(01012345678)" data-validate="required minlength=7" name="phoneNum">
             <span class="invalid_feedback">-빼고 입력하세요</span>
         </div>
         <div class="form-group mt-10">
             <button class="button" id="btnCheck">가입하기</button>
-            
         </div>
     </form>
 
@@ -68,6 +65,11 @@
                 form.removeClass("ani-horizontal");
             }, 1000);
         }
+
+        function validateForm(){
+            $(".login-form").animate({
+                opacity: 0
+            });
 
         // 비밀번호 확인
         window.onload = function(){

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC>
 <html>
 <head>
 <title>티켓팅을 해봐요~</title>
@@ -34,7 +34,7 @@ button{
 	border:1px solid #000;
 }
 #scorePanel strong{
-	color:yellow; 
+	color:yellow;
 }
 #mole,#mole2,#mole3,#mole4,#mole5,#mole6{
 	position:absolute;
@@ -62,7 +62,7 @@ button{
 
 <script type='text/javascript' src='http://code.jquery.com/jquery-1.11.0.js'></script>
 
-<script> 
+<script>
 
 $.fn.moleGame = function(options){
 
@@ -135,7 +135,7 @@ $.fn.moleGame = function(options){
 					}
 					);
 				}, 50);
-				nTimerID = setInterval(function(){	
+				nTimerID = setInterval(function(){
 					var x6 = parseInt(Math.random()*w);
 					var y6 = parseInt(Math.random()*h);
 					$mole6.animate({
@@ -156,7 +156,7 @@ $.fn.moleGame = function(options){
 					$play.removeClass("btn_off");
 					$play.fadeIn(100);
 				}, 10000);
-				
+
 			},
 
 			clickMole : function(){
@@ -201,7 +201,7 @@ $(function(){
 </head>
 
 <body>
-<div> 
+<div>
 	<div id="moleGame">
 		<div id="scorePanel">Score : <strong>0</strong></div>
 		<div id="panel">
@@ -211,11 +211,11 @@ $(function(){
 			<img src="images/ticket.png" id="mole4" width="100px">
 			<img src="images/minusticket.png" id="mole5" width="100px">
 			<img src="images/gldticket.png" id="mole6" width="100px">
-			
-		</div>	
+
+		</div>
 		<p style="text-align:center;"><button type="button" id="play" class="btn">게임시작!</button></p>
 	</div>
-	
+
 </div>
 </body>
 </html>
